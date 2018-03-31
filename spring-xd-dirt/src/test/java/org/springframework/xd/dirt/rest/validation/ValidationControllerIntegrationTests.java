@@ -52,11 +52,11 @@ public class ValidationControllerIntegrationTests extends AbstractControllerInte
 	@Test
 	public void testValidCronExpression() throws Exception {
 		final CronValidation cronValidation = new CronValidation();
-		cronValidation.setCronExpression("1 1 1 1 1 1");
+		cronValidation.setCronExpression("0 0 * * * *");
 		mockMvc.perform(
 				post("/validation/cron").content(new ObjectMapper().writeValueAsString(cronValidation)).accept(
 						MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(
-				jsonPath("$.cronExpression", equalToIgnoringCase("1 1 1 1 1 1"))).andExpect(
+				jsonPath("$.cronExpression", equalToIgnoringCase("0 0 * * * *"))).andExpect(
 				jsonPath("$.valid", equalTo(true))).andExpect(
 				jsonPath("$.errorMessage", nullValue())).andExpect(
 				jsonPath("$.nextExecutionTime", notNullValue()));
