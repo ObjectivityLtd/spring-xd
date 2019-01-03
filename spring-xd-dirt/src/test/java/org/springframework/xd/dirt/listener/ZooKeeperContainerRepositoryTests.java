@@ -88,7 +88,7 @@ public class ZooKeeperContainerRepositoryTests {
 	@Before
 	public void setUp() throws Exception {
 		try {
-			zooKeeperConnection.getClient().create().creatingParentsIfNeeded().forPath(Paths.CONTAINERS);
+			zooKeeperConnection.getClient().create().creatingParentsIfNeeded().forPath(Paths.build(Paths.CONTAINERS));
 		}
 		catch (KeeperException.NodeExistsException e) {
 			// ignore
@@ -228,7 +228,7 @@ public class ZooKeeperContainerRepositoryTests {
 	@After
 	public void tearDown() throws Exception {
 		CuratorFramework client = zooKeeperConnection.getClient();
-		for (String path : client.getChildren().forPath(Paths.CONTAINERS)) {
+		for (String path : client.getChildren().forPath(Paths.build(Paths.CONTAINERS))) {
 			client.delete().deletingChildrenIfNeeded().forPath(Paths.build(Paths.CONTAINERS, path));
 		}
 	}

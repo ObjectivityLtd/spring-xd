@@ -33,16 +33,16 @@ import org.springframework.xd.dirt.zookeeper.ZooKeeperUtils;
  */
 public class RepositoryConnectionListener implements ZooKeeperConnectionListener {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onConnect(CuratorFramework client) {
-		ensurePath(client, Paths.STREAMS);
-		ensurePath(client, Paths.JOBS);
-		ensurePath(client, Paths.STREAM_DEPLOYMENTS);
-		ensurePath(client, Paths.JOB_DEPLOYMENTS);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onConnect(CuratorFramework client) {
+        ensurePath(client, Paths.build(Paths.STREAMS));
+        ensurePath(client, Paths.build(Paths.JOBS));
+        ensurePath(client, Paths.STREAM_DEPLOYMENTS);
+        ensurePath(client, Paths.JOB_DEPLOYMENTS);
+    }
 
 	/**
 	 * {@inheritDoc}

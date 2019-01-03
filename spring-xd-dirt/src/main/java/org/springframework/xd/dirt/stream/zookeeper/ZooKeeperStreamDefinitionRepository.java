@@ -148,8 +148,9 @@ public class ZooKeeperStreamDefinitionRepository implements StreamDefinitionRepo
 
 	@Override
 	public StreamDefinition findOne(String id) {
+		String path = Paths.build(Paths.STREAMS, id);
 		try {
-			byte[] bytes = zkConnection.getClient().getData().forPath(Paths.build(Paths.STREAMS, id));
+			byte[] bytes = zkConnection.getClient().getData().forPath(path);
 			if (bytes == null) {
 				return null;
 			}
@@ -170,8 +171,9 @@ public class ZooKeeperStreamDefinitionRepository implements StreamDefinitionRepo
 
 	@Override
 	public boolean exists(String id) {
+		String path = Paths.build(Paths.STREAMS, id);
 		try {
-			return (null != zkConnection.getClient().checkExists().forPath(Paths.build(Paths.STREAMS, id)));
+			return (null != zkConnection.getClient().checkExists().forPath(path));
 		}
 		catch (Exception e) {
 			throw ZooKeeperUtils.wrapThrowable(e);
@@ -181,7 +183,7 @@ public class ZooKeeperStreamDefinitionRepository implements StreamDefinitionRepo
 	@Override
 	public List<StreamDefinition> findAll() {
 		try {
-			return this.findAll(zkConnection.getClient().getChildren().forPath(Paths.STREAMS));
+			return this.findAll(zkConnection.getClient().getChildren().forPath(Paths.build(Paths.STREAMS)));
 		}
 		catch (Exception e) {
 			throw ZooKeeperUtils.wrapThrowable(e);
@@ -203,7 +205,7 @@ public class ZooKeeperStreamDefinitionRepository implements StreamDefinitionRepo
 	@Override
 	public long count() {
 		try {
-			Stat stat = zkConnection.getClient().checkExists().forPath(Paths.STREAMS);
+			Stat stat = zkConnection.getClient().checkExists().forPath(Paths.build(Paths.STREAMS));
 			return stat == null ? 0 : stat.getNumChildren();
 		}
 		catch (Exception e) {
@@ -214,9 +216,8 @@ public class ZooKeeperStreamDefinitionRepository implements StreamDefinitionRepo
 	@Override
 	public void delete(String id) {
 		logger.trace("Deleting stream {}", id);
-		String path = Paths.build(Paths.STREAMS, id);
 		try {
-			zkConnection.getClient().delete().deletingChildrenIfNeeded().forPath(path);
+			zkConnection.getClient().delete().deletingChildrenIfNeeded().forPath(Paths.build(Paths.STREAMS, id));
 		}
 		catch (Exception e) {
 			//NoNodeException - nothing to delete

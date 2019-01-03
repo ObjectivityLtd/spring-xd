@@ -525,6 +525,11 @@ class DeploymentListener implements PathChildrenCacheListener {
 					// this watcher is only interested in deletes for the purposes of
 					// undeploying modules;if any other change occurs the watch needs to be
 					// reestablished
+					if (event.getPath() == null) {
+						logger.warn("Ignoring 'null' path; ZooKeeper state: {}",
+								zkConnection.getClient().getZookeeperClient().getZooKeeper().getState());
+						return;
+					}
 					try {
 						client.getData().usingWatcher(this).forPath(event.getPath());
 					}
@@ -592,6 +597,11 @@ class DeploymentListener implements PathChildrenCacheListener {
 						Watcher.Event.KeeperState.ConnectedReadOnly).contains(event.getState())) {
 					// this watcher is only interested in deletes for the purposes of undeploying modules;
 					// if any other change occurs the watch needs to be reestablished
+					if (event.getPath() == null) {
+						logger.warn("Ignoring 'null' path; ZooKeeper state: {}",
+								zkConnection.getClient().getZookeeperClient().getZooKeeper().getState());
+						return;
+					}
 					try {
 						client.getData().usingWatcher(this).forPath(event.getPath());
 					}

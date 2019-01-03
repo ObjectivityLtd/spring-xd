@@ -122,7 +122,7 @@ public class StreamDeployer extends AbstractInstancePersistingDeployer<StreamDef
 		if (this.zkConnection.getClient() != null) {
 			try {
 				CuratorFramework client = this.zkConnection.getClient();
-				if (client.checkExists().forPath(Paths.STREAMS) != null) {
+				if (client.checkExists().forPath(Paths.build(Paths.STREAMS)) != null) {
 					for (StreamDefinition definition : findAll()) {
 						setModuleDefinitions(client, definition);
 					}

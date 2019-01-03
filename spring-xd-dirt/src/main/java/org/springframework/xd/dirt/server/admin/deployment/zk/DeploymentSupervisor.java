@@ -270,10 +270,10 @@ public class DeploymentSupervisor implements ApplicationListener<ApplicationEven
 			Paths.ensurePath(client, Paths.MODULE_DEPLOYMENTS);
 			Paths.ensurePath(client, Paths.STREAM_DEPLOYMENTS);
 			Paths.ensurePath(client, Paths.JOB_DEPLOYMENTS);
-			Paths.ensurePath(client, Paths.ADMINS);
-			Paths.ensurePath(client, Paths.CONTAINERS);
-			Paths.ensurePath(client, Paths.STREAMS);
-			Paths.ensurePath(client, Paths.JOBS);
+			Paths.ensurePath(client, Paths.build(Paths.ADMINS));
+			Paths.ensurePath(client, Paths.build(Paths.CONTAINERS));
+			Paths.ensurePath(client, Paths.build(Paths.STREAMS));
+			Paths.ensurePath(client, Paths.build(Paths.JOBS));
 			if (leaderSelector == null) {
 				leaderSelector = new LeaderSelector(client, Paths.build(Paths.ADMINELECTION), leaderListener);
 				leaderSelector.setId(getId());
@@ -482,7 +482,7 @@ public class DeploymentSupervisor implements ApplicationListener<ApplicationEven
 						executorService,
 						quietPeriod);
 
-				containers = instantiatePathChildrenCache(client, Paths.CONTAINERS);
+				containers = instantiatePathChildrenCache(client, Paths.build(Paths.CONTAINERS));
 				containers.getListenable().addListener(containerListener);
 				containers.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
 

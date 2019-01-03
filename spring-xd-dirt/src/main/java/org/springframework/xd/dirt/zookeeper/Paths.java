@@ -121,24 +121,24 @@ public class Paths {
 	 * Name of module deployments node. Module deployment requests for
 	 * individual containers are written as children of this node.
 	 */
-	public static final String MODULE_DEPLOYMENTS = DEPLOYMENTS + '/' + MODULES;
+	public static final String MODULE_DEPLOYMENTS = Paths.build(DEPLOYMENTS, MODULES);
 
 	/**
 	 * Name of stream deployments node. Stream deployment requests are written
 	 * as children of this node.
 	 */
-	public static final String STREAM_DEPLOYMENTS = DEPLOYMENTS + '/' + STREAMS;
+	public static final String STREAM_DEPLOYMENTS = Paths.build(DEPLOYMENTS, STREAMS);
 
 	/**
 	 * Name of job deployments node. Job deployment requests are written
 	 * as children of this node.
 	 */
-	public static final String JOB_DEPLOYMENTS = DEPLOYMENTS + '/' + JOBS;
+	public static final String JOB_DEPLOYMENTS = Paths.build(DEPLOYMENTS, JOBS);
 
 	/**
 	 * Name of the stream deployment queue path.
 	 */
-	public static final String DEPLOYMENT_QUEUE = QUEUE  + '/' + DEPLOYMENTS;
+	public static final String DEPLOYMENT_QUEUE = Paths.build(QUEUE, DEPLOYMENTS);
 
 	/**
 	 * Strip path information from a string. For example, given an input of

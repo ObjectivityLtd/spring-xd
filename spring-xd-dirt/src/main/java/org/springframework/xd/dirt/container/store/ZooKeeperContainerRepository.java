@@ -154,7 +154,7 @@ public class ZooKeeperContainerRepository implements ContainerRepository, Applic
 			synchronized (cacheRef) {
 				if (cacheRef.get() == null) {
 					CuratorFramework client = zkConnection.getClient();
-					PathChildrenCache cache = new PathChildrenCache(client, Paths.CONTAINERS,
+					PathChildrenCache cache = new PathChildrenCache(client, Paths.build(Paths.CONTAINERS),
 							true, ThreadUtils.newThreadFactory("ContainerCache"));
 					cache.getListenable().addListener(new PathChildrenCacheListener() {
 
@@ -169,7 +169,7 @@ public class ZooKeeperContainerRepository implements ContainerRepository, Applic
 						}
 					});
 					try {
-						Paths.ensurePath(client, Paths.CONTAINERS);
+						Paths.ensurePath(client, Paths.build(Paths.CONTAINERS));
 						cacheRef.set(cache);
 						cache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
 					}

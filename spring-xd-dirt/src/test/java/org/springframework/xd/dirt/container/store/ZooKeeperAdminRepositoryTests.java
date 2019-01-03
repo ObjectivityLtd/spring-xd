@@ -75,7 +75,7 @@ public class ZooKeeperAdminRepositoryTests {
 	@Before
 	public void setUp() throws Exception {
 		try {
-			zooKeeperConnection.getClient().create().creatingParentsIfNeeded().forPath(Paths.ADMINS);
+			zooKeeperConnection.getClient().create().creatingParentsIfNeeded().forPath(Paths.build(Paths.ADMINS));
 		}
 		catch (KeeperException.NodeExistsException e) {
 			// ignore
@@ -192,7 +192,7 @@ public class ZooKeeperAdminRepositoryTests {
 	@After
 	public void tearDown() throws Exception {
 		CuratorFramework client = zooKeeperConnection.getClient();
-		for (String path : client.getChildren().forPath(Paths.ADMINS)) {
+		for (String path : client.getChildren().forPath(Paths.build(Paths.ADMINS))) {
 			client.delete().deletingChildrenIfNeeded().forPath(Paths.build(Paths.ADMINS, path));
 		}
 	}

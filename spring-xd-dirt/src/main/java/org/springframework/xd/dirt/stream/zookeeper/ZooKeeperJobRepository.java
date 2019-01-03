@@ -132,7 +132,7 @@ public class ZooKeeperJobRepository implements JobRepository, InitializingBean {
 	@Override
 	public List<Job> findAll() {
 		try {
-			return findAll(zkConnection.getClient().getChildren().forPath(Paths.JOBS));
+			return findAll(zkConnection.getClient().getChildren().forPath(Paths.build(Paths.JOBS)));
 		}
 		catch (Exception e) {
 			throw ZooKeeperUtils.wrapThrowable(e);

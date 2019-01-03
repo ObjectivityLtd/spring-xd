@@ -246,7 +246,7 @@ public class ZooKeeperModuleMetadataRepository implements ModuleMetadataReposito
 	 */
 	private List<String> getAvailableContainerIds() {
 		try {
-			return zkConnection.getClient().getChildren().forPath(Paths.CONTAINERS);
+			return zkConnection.getClient().getChildren().forPath(Paths.build(Paths.CONTAINERS));
 		}
 		catch (Exception e) {
 			throw ZooKeeperUtils.wrapThrowable(e);

@@ -45,7 +45,7 @@ import org.springframework.xd.dirt.zookeeper.ZooKeeperUtils;
 
 /**
  * A Zookeeper backed repository for persisting {@link JobDefinition}s.
- * 
+ *
  * @author Mark Fisher
  * @author David Turanski
  */
@@ -152,7 +152,7 @@ public class ZooKeeperJobDefinitionRepository implements JobDefinitionRepository
 	@Override
 	public List<JobDefinition> findAll() {
 		try {
-			return this.findAll(zkConnection.getClient().getChildren().forPath(Paths.JOBS));
+			return this.findAll(zkConnection.getClient().getChildren().forPath(Paths.build(Paths.JOBS)));
 		}
 		catch (Exception e) {
 			throw ZooKeeperUtils.wrapThrowable(e);
@@ -171,7 +171,7 @@ public class ZooKeeperJobDefinitionRepository implements JobDefinitionRepository
 	@Override
 	public long count() {
 		try {
-			Stat stat = zkConnection.getClient().checkExists().forPath(Paths.JOBS);
+			Stat stat = zkConnection.getClient().checkExists().forPath(Paths.build(Paths.JOBS));
 			return stat == null ? 0 : stat.getNumChildren();
 		}
 		catch (Exception e) {
